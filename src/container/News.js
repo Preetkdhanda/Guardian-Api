@@ -5,7 +5,7 @@ import NewsList from "../components/NewsList";
 const News = () => {
 
     const [news, setNews] = useState([])
-    const [selectedNews, setSelectedNews]= useState(null)
+    const [selectedNews, setSelectedNews]= useState([])
 
     useEffect(()=>{
 
@@ -14,22 +14,25 @@ const News = () => {
 
     const getNews=()=>{
         fetch("https://content.guardianapis.com/search?q=brexit&format=json&api-key=test")
-        .then(respone => respone.json())
-        .then(newsLog => processData(newsLog))
+        .then(res => res.json())
+        .then(newsLog => processData(newsLog));
     }
+    
 
-    const processData = (data) =>{
-        const newsLog = data.map((SingleNews)=>{
+    const processData = (data) => {
+        console.log(data.response.results);
+        const newsLog = data.response.results.map( (article) => {
             return{
-                headline : SingleNews.response.results.webTitle,
-                section : SingleNews.respone.results.sectionName
+                "headline" : article.webTitle,
+                "section" : article.sectionName
             }
 
         })
         setNews(newsLog)
-        ;
+        
+        
 
-    }
+    };
 
     const onNewsSelected = function(news){
 

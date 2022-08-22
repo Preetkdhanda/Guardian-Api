@@ -1,9 +1,9 @@
 import React from "react";
 import NewsList from "./NewsList";
 
-const SingleNews = ({news}) => {
+const SingleNews = ({item}) => {
     
-return <li>{news.headline}</li>
+return <li>{item.headline}</li>
 
 } 
 
